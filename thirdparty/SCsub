@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
+import os
+
 Import("env")
 Import("env_modules")
 
 # Thirdparty sources
 
-libvpx_dir = "#thirdparty/libvpx/"
+libvpx_dir = "./libvpx/"
 
 libvpx_sources = [
     "vp8/vp8_dx_iface.c",
@@ -291,7 +293,7 @@ if webm_cpu_x86:
     env_libvpx["ASFORMAT"] += cpu_bits
 
     env_libvpx["AS"] = "yasm"
-    env_libvpx["ASFLAGS"] = "-I" + libvpx_dir[1:] + " -f $ASFORMAT -D $ASCPU"
+    env_libvpx["ASFLAGS"] = "-I" + os.path.abspath(libvpx_dir) + " -f $ASFORMAT -D $ASCPU"
     env_libvpx["ASCOM"] = "$AS $ASFLAGS -o $TARGET $SOURCES"
 
     if cpu_bits == "32":

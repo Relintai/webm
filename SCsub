@@ -9,7 +9,7 @@ env_webm = env_modules.Clone()
 
 thirdparty_obj = []
 
-thirdparty_dir = "#thirdparty/libsimplewebm/"
+thirdparty_dir = "./thirdparty/libsimplewebm/"
 thirdparty_sources = [
     "libwebm/mkvparser/mkvparser.cc",
     "OpusVorbisDecoder.cpp",
@@ -28,9 +28,8 @@ if env["builtin_libvorbis"]:
 if env["builtin_opus"]:
     env_webm.Prepend(CPPPATH=["#thirdparty/opus"])
 
-if env["builtin_libvpx"]:
-    env_webm.Prepend(CPPPATH=["#thirdparty/libvpx"])
-    SConscript("libvpx/SCsub")
+env_webm.Prepend(CPPPATH=["./thirdparty/libvpx"])
+SConscript("./thirdparty/SCsub")
 
 env_thirdparty = env_webm.Clone()
 env_thirdparty.disable_warnings()
